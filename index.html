@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget_Counter</title>
+    <style>
+        
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        html, body {
+            height: 100%;
+            background-color: #f0f0f0;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+       
+        .container {
+            background-color: #d48282;
+            border: 5px solid black;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        
+        .head {
+            text-align: center;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .head h2 {
+            font-weight: bold;
+            color: #333;
+        }
+        
+    
+        .entries {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        
+        .in_section1 {
+            text-align: center;
+        }
+        
+        .in_section1 #Type {
+            padding: 0.2rem;
+        }
+        
+        select {
+            padding: 0.2rem 1rem 0.2rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .in_section2 {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .in1, .in2 {
+            padding: 0.3rem;
+        }
+        
+        input[type="text"], input[type="number"] {
+            padding: 0.2rem 1rem 0.2rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+      
+        .add {
+            margin: 10px auto;
+            padding: 0.2rem 1rem 0.2rem 1rem;
+            text-align: center;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .add:hover {
+            background-color: #3e8e41;
+        }
+        
+        
+        .lower table {
+            width: 100%;
+            border: 2px solid #ddd;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 2px solid #ddd;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+        }
+        
+        
+        .error {
+            color: red;
+            padding: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="head"><h2>Budget_Tracker</h2></div>
+        <div class="upper">
+            <div class="entries">
+                <div class="in_section1">
+                    <p id="Type">Type</p>
+                    <select name="options" id="options">
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                <div class="in_section2">
+                    <div class="in1">
+                        <p>Name:</p>
+                        <input type="text" name="name" id="name">
+                    </div>
+                    <div class="in2">
+                        <p>Amount:</p>
+                        <input type="number" name="amount" id="amount">
+                    </div>
+                </div>
+            </div>
+            <button class="add" onclick="add()">Add To</button>
+            <div class="error"></div>
+        </div>
+        <div class="lower">
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Options</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function add(){
+            const type = document.getElementById("options").value;
+            const name = document.getElementById("name").value;
+            const amount = document.getElementById("amount").value;
+            if(type!=="" && name!=="" && amount!==""){
+                const table = document.querySelector("table");
+                const row = document.createElement("tr");
+                const typecell = document.createElement("td");
+                const namecell = document.createElement("td");
+                const amountcell = document.createElement("td");
+                const optioncell = document.createElement("td");
+                typecell.innerText=type;
+                row.appendChild(typecell);
+                namecell.innerText=name;
+                row.appendChild(namecell);
+                amountcell.innerText=amount;
+                row.appendChild(amountcell);
+                optioncell.innerHTML='<button onclick="removeItem(this)">Remove</button>';
+                row.appendChild(optioncell);
+                table.appendChild(row);
+            } else {
+                document.querySelector(".error").innerHTML="<p>⚠️ Please Fill all the fields</p>";
+            }
+        }
+
+        function removeItem(button) {
+            const remove = button.parentNode.parentNode;
+            remove.parentNode.removeChild(remove);
+        }
+    </script>
+</body>
+</html>
